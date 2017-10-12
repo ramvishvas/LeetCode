@@ -10,34 +10,21 @@
 
 class Solution {
     public int repeatedStringMatch(String A, String B) {
-        int lenA = A.length();
-        int lenB = B.length();
-        int i = 0, j= 0, count = 0;
-      
-        while(i < lenA){
-            if(i % lenA == 0){
-                ++count;
-            }
-            if(A.charAt(i) != B.charAt(j)){
-                 ++i;
-            }
-            else{
-                break;
-            }
-           
+        StringBuilder sb = new StringBuilder(A);
+        
+        int count = 1;
+        
+        while(sb.length() < B.length()){
+            sb.append(A);
+            count++;
         }
-        while(j < lenB){
-            if(A.charAt(i%lenA) == B.charAt(j)){
-                if(i % lenA == 0 && i != 0){
-                    ++count;
-                }
-                ++i;
-                ++j;
-            } 
-            else{
-                return -1;
-            }
+            
+        if (sb.indexOf(B) >= 0){
+            return count;
         }
-        return count;
+        if (sb.append(A).indexOf(B) >= 0){
+            return count+1;
+        }
+        return -1;
     }
 }
